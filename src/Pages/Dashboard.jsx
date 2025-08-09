@@ -3,19 +3,35 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Dashboard.css';
 import { toast } from "react-toastify";
+import { signOut,onAuthStateChanged } from "firebase/auth";
+import { auth  } from "../Services/firebase";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+      } else {
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    toast.info("Logged out successfully");
-    navigate("/");
-  };
+  signOut(auth)
+    .then(() => {
+      toast.info("Logged out successfully");
+      navigate("/");
+    })
+    .catch((error) => toast.error(error.message));
+};
 
   // Fetch products from DummyJSON
   useEffect(() => {
@@ -70,7 +86,7 @@ const [sortOption, setSortOption] = useState("");
             Search
           </button>
         </form>
-       
+        <span className="text-light small">{userEmail}</span>
         <div className="ms-auto">
           <button className="btn btn-danger rounded-pill" onClick={handleLogout}>
             Logout

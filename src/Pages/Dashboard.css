@@ -6,14 +6,12 @@ body {
   color: white;
 }
 
-/* Navbar Glass Effect */
 .glassy-nav {
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, #4f46e5, #0ea5e9, #14b8a6);
   animation: gradientMove 8s ease infinite;
@@ -25,7 +23,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Search Bar */
 .search-bar input {
   background: rgba(255, 255, 255, 0.15);
   border: none;
@@ -38,7 +35,6 @@ body {
   border: 1px solid white;
 }
 
-/* Futuristic Cards */
 .futuristic-card {
   background: rgba(255, 255, 255, 0.05);
   border: none;
